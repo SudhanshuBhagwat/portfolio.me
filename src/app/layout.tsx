@@ -7,14 +7,10 @@ const inter = Inter({ subsets: ["latin"] });
 
 export async function generateMetadata() {
   return {
-    title: "Minimal Portfolio",
-    description: "A minimal portfolio website",
+    title: "Sudhanshu Bhagat",
+    description: "A software developer, here for the fun of it",
     other: {
       "apple-mobile-web-app-status-bar-style": "default",
-      "theme-color": [
-        { media: "(prefers-color-scheme: light)", color: "#f9fafb" },
-        { media: "(prefers-color-scheme: dark)", color: "#09090b" },
-      ],
     },
   };
 }
