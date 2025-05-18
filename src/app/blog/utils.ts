@@ -55,7 +55,12 @@ function getMDXData(dir: string) {
 export function getBlogPosts() {
   return getMDXData(
     path.join(process.cwd(), "src", "app", "blog", "posts")
-  ).filter((post) => !post.metadata.private);
+  ).filter((post) => {
+    if (process.env.NODE_ENV !== "production") {
+      return true;
+    }
+    return !post.metadata.private;
+  });
 }
 
 export function formatDate(date: string, includeRelative = false) {
