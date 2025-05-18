@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { useTheme } from "../context/ThemeContext";
 
 export default function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
@@ -24,10 +23,6 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
 
   const navLinks = [
     { title: "Home", path: "/" },
@@ -74,45 +69,8 @@ export default function Navbar() {
               {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
             </button>
           </nav>
-
-          {/* <div className="flex items-center md:hidden">
-            <button
-              onClick={toggleTheme}
-              className="mr-2 rounded-full p-2 text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-800"
-              aria-label="Toggle theme"
-            >
-              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
-            <button
-              onClick={toggleMenu}
-              className="rounded-md p-2 text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-800"
-              aria-label="Toggle menu"
-            >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div> */}
         </div>
       </div>
-
-      {/* Mobile Navigation Menu */}
-      {/* {isMenuOpen && (
-        <div className="md:hidden bg-white dark:bg-gray-900 shadow-lg">
-          <div className="container-custom py-4">
-            <nav className="flex flex-col space-y-4">
-              {navLinks.map((link) => (
-                <NavLink
-                  key={link.title}
-                  to={link.path}
-                  className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {link.title}
-                </NavLink>
-              ))}
-            </nav>
-          </div>
-        </div>
-      )} */}
     </header>
   );
 }

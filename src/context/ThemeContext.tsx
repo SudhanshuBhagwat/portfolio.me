@@ -39,12 +39,9 @@ export default function ThemeProvider({ children }: ThemeProviderProps) {
   useEffect(() => {
     const root = window.document.documentElement;
 
-    // Remove the old class
     root.classList.remove(theme === "dark" ? "light" : "dark");
-    // Add the new class
     root.classList.add(theme);
 
-    // Save theme to localStorage
     localStorage.setItem("theme", theme);
   }, [theme]);
 
