@@ -26,7 +26,7 @@ function TimelineItem({
     >
       <img
         src={imgSrc}
-        className="w-8 absolute left-[-16px] top-0 bg-gray-50 dark:bg-zinc-950 transition-all duration-300"
+        className="w-8 absolute left-[-16px] top-0 bg-gray-50 dark:bg-zinc-950 transition-all duration-300 select-none"
       />
       <h3 className="text-lg font-medium mb-2">{title}</h3>
       <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">

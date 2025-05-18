@@ -56,7 +56,6 @@ export default function Blog({ params }: { params: { slug: string } }) {
 
   return (
     <div className="py-8">
-      <head></head>
       <div className="container-custom">
         <Link
           href="/blog"
