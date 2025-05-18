@@ -1,0 +1,23 @@
+export interface BlogPost {
+  id: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  readTime: number;
+  imageUrl: string;
+  categories: string[];
+}
+
+export const blogPosts: BlogPost[] = [
+  {
+    id: "hello-world",
+    title: "Building a React App with TypeScript: A Step-by-Step Guide",
+    excerpt:
+      "Learn how to create a modern React application with TypeScript from scratch, including setup, component structure, and best practices.",
+    date: "June 12, 2023",
+    readTime: 8,
+    imageUrl:
+      "https://images.pexels.com/photos/4164418/pexels-photo-4164418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    categories: ["React", "TypeScript", "Web Development"],
+  },
+];
