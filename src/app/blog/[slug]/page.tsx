@@ -35,13 +35,6 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
       title,
       description,
     },
-    other: {
-      "apple-mobile-web-app-status-bar-style": "default",
-      "theme-color": [
-        { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-        { media: "(prefers-color-scheme: dark)", color: "#1a1a1a" },
-      ],
-    },
   };
 }
 
@@ -63,19 +56,7 @@ export default function Blog({ params }: { params: { slug: string } }) {
 
   return (
     <div className="py-8">
-      <head>
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta
-          name="theme-color"
-          content="#ffffff"
-          media="(prefers-color-scheme: light)"
-        />
-        <meta
-          name="theme-color"
-          content="#1a1a1a"
-          media="(prefers-color-scheme: dark)"
-        />
-      </head>
+      <head></head>
       <div className="container-custom">
         <Link
           href="/blog"
