@@ -30,7 +30,7 @@ export default function Blog() {
                   title: post.metadata.title,
                   excerpt: post.metadata.excerpt || "",
                   date: post.metadata.date,
-                  readTime: parseInt(post.metadata.readTime),
+                  readTime: post.metadata.readTime,
                 }}
                 index={index}
               />

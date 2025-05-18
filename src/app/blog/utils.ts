@@ -1,13 +1,13 @@
 import fs from "fs";
 import path from "path";
 
-type Metadata = {
+export type Metadata = {
   id: string;
   title: string;
   excerpt: string;
   date: string;
   readTime: string;
-  imageUrl: string;
+  imageUrl?: string;
 };
 
 function parseFrontmatter(fileContent: string) {

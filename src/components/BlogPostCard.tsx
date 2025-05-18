@@ -1,11 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BlogPost } from "../data/blogPosts";
 import Link from "next/link";
+import { Metadata } from "../app/blog/utils";
 
 interface BlogPostCardProps {
-  post: BlogPost;
+  post: Metadata;
   index: number;
 }
 

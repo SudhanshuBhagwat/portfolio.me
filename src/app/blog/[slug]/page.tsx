@@ -3,7 +3,6 @@ import { CustomMDX } from "@/components/MDX";
 import { getBlogPosts } from "../utils";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-// import { baseUrl } from "app/sitemap";
 
 export async function generateStaticParams() {
   let posts = getBlogPosts();
@@ -20,9 +19,6 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   }
 
   let { title, date, excerpt: description } = post.metadata;
-  // let ogImage = image
-  //   ? image
-  //   : `${baseUrl}/og?title=${encodeURIComponent(title)}`;
 
   return {
     title,
@@ -32,18 +28,11 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
       description,
       type: "article",
       date,
-      // url: `${baseUrl}/blog/${post.slug}`,
-      // images: [
-      //   {
-      //     url: ogImage,
-      //   },
-      // ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      // images: [ogImage],
     },
   };
 }
@@ -68,10 +57,6 @@ export default function Blog({ params }: { params: { slug: string } }) {
             datePublished: post.metadata.date,
             dateModified: post.metadata.date,
             description: post.metadata.excerpt,
-            // image: post.metadata.image
-            //   ? `${baseUrl}${post.metadata.image}`
-            //   : `/og?title=${encodeURIComponent(post.metadata.title)}`,
-            // url: `${baseUrl}/blog/${post.slug}`,
             author: {
               "@type": "Person",
               name: "My Portfolio",
