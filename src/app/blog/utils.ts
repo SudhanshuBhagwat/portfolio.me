@@ -8,6 +8,7 @@ export type Metadata = {
   date: string;
   readTime: string;
   imageUrl?: string;
+  categories: string[];
 };
 
 function parseFrontmatter(fileContent: string) {
@@ -22,7 +23,11 @@ function parseFrontmatter(fileContent: string) {
     let [key, ...valueArr] = line.split(": ");
     let value = valueArr.join(": ").trim();
     value = value.replace(/^['"](.*)['"]$/, "$1");
-    metadata[key.trim() as keyof Metadata] = value as any;
+    if (key === "categories") {
+      metadata["categories"] = JSON.parse(value);
+    } else {
+      metadata[key.trim() as keyof Metadata] = value as any;
+    }
   });
 
   return { metadata: metadata as Metadata, content };

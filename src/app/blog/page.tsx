@@ -31,6 +31,7 @@ export default function Blog() {
                   excerpt: post.metadata.excerpt || "",
                   date: post.metadata.date,
                   readTime: post.metadata.readTime,
+                  categories: post.metadata.categories,
                 }}
                 index={index}
               />
