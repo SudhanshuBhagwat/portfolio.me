@@ -71,11 +71,9 @@ export default function Blog({ params }: { params: { slug: string } }) {
               {post.metadata.date} • {post.metadata.readTime} min read
             </div>
           </div>
-          <div className="prose prose-lg max-w-none dark:prose-invert">
-            <article className="prose">
-              <CustomMDX source={post.content} />
-            </article>
-          </div>
+          <article className="prose">
+            <CustomMDX source={post.content} />
+          </article>
           {relatedPosts.length > 0 && (
             <div className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
               <h2>Related Posts</h2>

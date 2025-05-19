@@ -1,0 +1,24 @@
+---
+id: "compound-components"
+title: "The wizardry of Compound Components"
+excerpt: "A design pattern to abstract away the business logic of the component to the Actor"
+date: "May 18, 2025"
+readTime: 5
+categories: ["React", "TypeScript", "JavaScript"]
+---
+
+## What are Compount Components?
+
+```tsx
+export default function App() {
+  return (
+    <Dropdown>
+      <Dropdown.Trigger>Dropdown</Dropdown.Trigger>
+      <Dropdown.Items>
+        <Dropdown.Item>John Soe</Dropdown.Item>
+        <Dropdown.Item>Susan Storm</Dropdown.Item>
+      </Dropdown.Items>
+    </Dropdown>
+  );
+}
+```
