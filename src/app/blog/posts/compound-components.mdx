@@ -3,22 +3,169 @@ id: "compound-components"
 title: "The wizardry of Compound Components"
 excerpt: "A design pattern to abstract away the business logic of the component to the Actor"
 date: "May 18, 2025"
-readTime: 5
 categories: ["React", "TypeScript", "JavaScript"]
 ---
 
-## What are Compount Components?
+## What are Compound Components?
+
+Compound components are a design pattern commonly used in React to create flexible and declarative UIs. In this pattern, the internal logic of a component is abstracted away, allowing the developer using the component to focus solely on what the UI should look like and how it should behave — which is the core philosophy of React.
+
+Typically, compound components are _unstyled by default_, leaving visual decisions to the user. This pattern empowers developers to compose complex functionality without having to manage the nitty-gritty implementation details.
+
+### A Simple Example: Dropdown
+
+Here’s a basic example of a `Dropdown` component built using the compound components pattern:
 
 ```tsx
-export default function App() {
+export function App() {
   return (
     <Dropdown>
-      <Dropdown.Trigger>Dropdown</Dropdown.Trigger>
+      <Dropdown.Trigger>Click Me!</Dropdown.Trigger>
       <Dropdown.Items>
-        <Dropdown.Item>John Soe</Dropdown.Item>
+        <Dropdown.Item>John Doe</Dropdown.Item>
         <Dropdown.Item>Susan Storm</Dropdown.Item>
       </Dropdown.Items>
     </Dropdown>
   );
 }
 ```
+
+In the example above:
+
+- `Dropdown` provides the context and manages the state.
+
+- `Dropdown.Trigger` toggles the open/close behavior.
+
+- `Dropdown.Items` conditionally renders the list.
+
+- `Dropdown.Item` represents each individual option.
+
+All the internal behavior — toggling visibility, state management, etc. — is encapsulated within the component. The user simply focuses on structure and content.
+
+If this feels familiar, it’s probably because you’ve seen this pattern in libraries like:
+
+- [Radix UI](https://www.radix-ui.com/themes/docs/components/dialog)
+
+- [Headless UI](https://headlessui.com/react/menu)
+
+### Breaking Down the API
+
+Let’s look at the individual pieces of our Dropdown:
+
+- `<Dropdown>`
+
+  - Acts as the parent container and manages the shared state.
+
+  - Often styled or structured externally by the consumer.
+
+- `<Dropdown.Trigger>`
+
+  - A button or clickable area to toggle the dropdown open or closed.
+
+- `<Dropdown.Items>`
+
+  - Optionally wraps the list of items.
+
+  - Useful for structuring or styling the menu as a group.
+
+- `<Dropdown.Item>`
+
+  - Represents an individual item inside the dropdown list.
+
+### Implementing the Dropdown Component
+
+Let’s see how we can build this using React’s Context and useState:
+
+```tsx
+import { createContext, useContext, useState } from "react";
+
+const DropdownContext = createContext<{
+  open: boolean;
+  toggle: () => void;
+} | null>(null);
+
+function Dropdown({ children }: { children: React.ReactNode }) {
+  const [open, setOpen] = useState(false);
+  const toggle = () => setOpen((prev) => !prev);
+
+  return (
+    <DropdownContext.Provider value={{ open, toggle }}>
+      {children}
+    </DropdownContext.Provider>
+  );
+}
+
+function Trigger({ children }: { children: React.ReactNode }) {
+  const context = useContext(DropdownContext);
+  if (!context)
+    throw new Error("Dropdown.Trigger must be used within <Dropdown>");
+  return <button onClick={context.toggle}>{children}</button>;
+}
+
+function Items({ children }: { children: React.ReactNode }) {
+  const context = useContext(DropdownContext);
+  if (!context)
+    throw new Error("Dropdown.Items must be used within <Dropdown>");
+  return context.open ? <div>{children}</div> : null;
+}
+
+function Item({ children }: { children: React.ReactNode }) {
+  return <div>{children}</div>;
+}
+
+// Attaching subcomponents
+Dropdown.Trigger = Trigger;
+Dropdown.Items = Items;
+Dropdown.Item = Item;
+
+export default Dropdown;
+```
+
+### Making It Safer and More Robust
+
+To prevent misuse (e.g., using Dropdown.Trigger outside of Dropdown), we’ve added runtime safety checks using useContext. You can go even further with the following enhancements:
+
+- **_Context Guarding_**
+
+  - Ensure all subcomponents are used within the parent by checking for a valid context.
+
+- **_Type Checking Children (Optional)_**
+
+  - You can validate children inside Dropdown.Items to ensure only Dropdown.Item components are rendered:
+
+###
+
+```tsx
+function Items({ children }: { children: React.ReactNode }) {
+  const context = useContext(DropdownContext);
+  if (!context)
+    throw new Error("Dropdown.Items must be used within <Dropdown>");
+
+  return context.open ? (
+    <div>
+      {React.Children.map(children, (child) => {
+        if (React.isValidElement(child) && child.type === Item) {
+          return child;
+        }
+        throw new Error(
+          "Dropdown.Items children must be of type <Dropdown.Item>"
+        );
+      })}
+    </div>
+  ) : null;
+}
+```
+
+### Wrapping Up
+
+This implementation is intentionally minimal, but it's a solid foundation. You can extend it to:
+
+- Support keyboard navigation and accessibility (ARIA attributes).
+
+- Add animation for the open/close behavior.
+
+- Style it with Tailwind, CSS-in-JS, or any method of your choice.
+
+Compound components offer a powerful way to build expressive APIs in React — cleanly separating concerns and enabling better code reuse. Hopefully, I’ve convinced you to try this pattern in your next UI project!
+
+If you have thoughts, feedback, or want to nerd out on design patterns — feel free to ping me on X!

@@ -4,6 +4,7 @@ import { getBlogPosts } from "../utils";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import BlogPostCard from "@/components/BlogPostCard";
+import Dropdown from "@/components/Dropdown";
 
 export async function generateStaticParams() {
   let posts = getBlogPosts();
@@ -68,7 +69,7 @@ export default function Blog({ params }: { params: { slug: string } }) {
           <div className="mb-8">
             <h1>{post.metadata.title}</h1>
             <div className="text-gray-600 dark:text-gray-400">
-              {post.metadata.date} • {post.metadata.readTime} min read
+              {post.metadata.date} • {post.metadata.readTime}
             </div>
           </div>
           <article className="prose">

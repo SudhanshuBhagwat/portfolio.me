@@ -1,5 +1,8 @@
 import fs from "fs";
 import path from "path";
+import { readingTime } from "reading-time-estimator";
+
+const WORDS_PER_MINUTE = 50;
 
 export type Metadata = {
   id: string;
@@ -24,6 +27,7 @@ function parseFrontmatter(fileContent: string) {
     const [key, ...valueArr] = line.split(": ");
     const value = valueArr.join(": ").trim();
     metadata[key.trim() as keyof Metadata] = JSON.parse(value);
+    metadata["readTime"] = readingTime(content, WORDS_PER_MINUTE).text;
   });
 
   return { metadata: metadata as Metadata, content };
